@@ -14,7 +14,7 @@ function love.load()
   sprites.player_stand = love.graphics.newImage('sprites/player_stand.png')
 
   require('player')
-  --anim8 = require('anim8')
+  anim8 = require('anim8/anim8')
   Gamestate = require "hump.gamestate"
 
   platforms = {}
