@@ -6,6 +6,8 @@ function menu:draw ()
 end
 
 function love.load()
+  love.window.setMode(900, 700, flags)
+
   myWorld = love.physics.newWorld(0, 500, false)
   myWorld:setCallbacks(beginContact, endContact, preSolve, postSolve)
   sprites = {}
