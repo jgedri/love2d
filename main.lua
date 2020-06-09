@@ -18,12 +18,16 @@ function love.load()
   require('player')
   require('coin')
   anim8 = require('anim8/anim8')
-  Gamestate = require "hump.gamestate"
+  gameState = 1
   sti = require('sti')
 
+  map = sti("maps/level1.lua")
+
+  for i, obj in pairs(map.layers["Platforms"].objects) do
+    spawnPlatform(obj.x, obj.y, obj.width, obj.height)
+  end
   platforms = {}
 
-  spawnPlatform(50, 400, 300, 30)
   spawnCoin(200, 100)
 
   gameState = 1
@@ -33,6 +37,7 @@ end
 function love.update(dt)
   myWorld:update(dt)
   playerUpdate(dt)
+  map:update(dt)
 
   for i,c in ipairs(coins) do
     c.animation:update(dt)
@@ -40,6 +45,8 @@ function love.update(dt)
 end
 
 function love.draw()
+  map:drawLayer(map.layers["Tile Layer 1"])
+
   love.graphics.draw(player.sprite, player.body:getX(), player.body:getY(), nil, player.direction, 1, sprites.player_stand:getWidth()/2, sprites.player_stand:getHeight()/2)
 
   for i,p in ipairs(platforms) do
@@ -47,7 +54,7 @@ function love.draw()
 
     if gameState == 1 then
       love.graphics.setFont(myFont)
-
+      love.graphics.printf("Press any key to begin!", 0, 50, love.graphics.getWidth(), "center")
     end
 
     for i,c in ipairs(coins) do
