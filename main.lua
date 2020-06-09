@@ -14,12 +14,14 @@ function love.load()
   sprites.player_stand = love.graphics.newImage('sprites/player_stand.png')
 
   require('player')
+  require('coin')
   anim8 = require('anim8/anim8')
   Gamestate = require "hump.gamestate"
 
   platforms = {}
 
   spawnPlatform(50, 400, 300, 30)
+  spawnCoin(200, 100)
 
   gameState = 1
   myFont = love.graphics.newFont(30)
@@ -28,6 +30,10 @@ end
 function love.update(dt)
   myWorld:update(dt)
   playerUpdate(dt)
+
+  for i,c in ipairs(coins) do
+    c.animation:update(dt)
+  end
 end
 
 function love.draw()
@@ -39,6 +45,10 @@ function love.draw()
     if gameState == 1 then
       love.graphics.setFont(myFont)
 
+    end
+
+    for i,c in ipairs(coins) do
+      c.animation:draw(sprites.coin_sheet, c.x, c.y)
     end
   end
 end
