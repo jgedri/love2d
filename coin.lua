@@ -17,4 +17,5 @@ function coinUpdate (dt)
     if distanceBetween(c.x, c.y, player.body:getX(), player.body:getY()) < 50 then
       c.collected = true
     end
+  end  
 end

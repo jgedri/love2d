@@ -19,6 +19,7 @@ function love.load()
   require('coin')
   anim8 = require('anim8/anim8')
   Gamestate = require "hump.gamestate"
+  sti = require('sti')
 
   platforms = {}
 
