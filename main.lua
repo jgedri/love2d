@@ -32,12 +32,17 @@ function love.load()
 
   gameState = 1
   myFont = love.graphics.newFont(30)
+
+  for i, obj in pairs(layers["Coins"].objects) do
+    spawnCoin(obj.x, obj.y)
+  end
 end
 
 function love.update(dt)
   myWorld:update(dt)
   playerUpdate(dt)
   map:update(dt)
+  coinUpdate(dt)
 
   for i,c in ipairs(coins) do
     c.animation:update(dt)
@@ -58,7 +63,7 @@ function love.draw()
     end
 
     for i,c in ipairs(coins) do
-      c.animation:draw(sprites.coin_sheet, c.x, c.y)
+      c.animation:draw(sprites.coin_sheet, c.x, c.y, nil, nil, nil, 20.5, 21)
     end
   end
 end
@@ -77,7 +82,7 @@ function spawnPlatform(x, y, width, height)
   platform.width = width
   platform.height = height
 
-  table.insert(platforms,platform)
+  table.insert(platforms, platform)
 end
 
 function beginContact(a, b, coll)
